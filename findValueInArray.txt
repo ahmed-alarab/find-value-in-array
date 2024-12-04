@@ -1,0 +1,98 @@
+#include <iostream>
+using namespace std;
+
+void searching(int lookingValue, int lookingIn[],int arraySize) {
+	int min, max, mid;
+	min = lookingIn[0];
+	max = lookingIn[arraySize - 1];
+	mid = lookingIn[(arraySize - 1) / 2];
+	int minIndex = 0;
+	int maxIndex = 0;
+	int midIndex = 0;
+	for (int i = 0; i <= (arraySize / 2) + 1; i++) {
+		for (int indexMid = 0; indexMid < arraySize; indexMid++) {
+			if (mid == lookingIn[indexMid]) {
+				midIndex = indexMid;
+				break;
+			}
+
+		}
+		if (lookingValue == mid) {
+			cout << "value found at index " << midIndex;
+			break;
+		}
+		else
+			if (lookingValue > mid) {
+				min = mid;
+
+				for (int indexMin = 0; indexMin < arraySize; indexMin++) {
+					if (min == lookingIn[indexMin]) {
+						minIndex = indexMin;
+						break;
+					}
+				}
+				for (int indexMax = 0; indexMax < arraySize; indexMax++) {
+					if (max == lookingIn[indexMax]) {
+						maxIndex = indexMax;
+						break;
+					}
+				}
+				mid = lookingIn[(maxIndex + minIndex) / 2];
+				if (midIndex == maxIndex && midIndex == minIndex) {
+					cout << "value not found";
+					break;
+				}
+				if (maxIndex == minIndex + 1) {
+					mid=lookingIn[maxIndex];
+				}
+			}
+			else
+				if (lookingValue < mid) {
+					max = mid;
+
+					for (int indexMin = 0; indexMin < arraySize; indexMin++) {
+						if (min == lookingIn[indexMin]) {
+							minIndex = indexMin;
+							break;
+						}
+					}
+					for (int indexMax = 0; indexMax < arraySize; indexMax++) {
+						if (max == lookingIn[indexMax]) {
+							maxIndex = indexMax;
+							break;
+						}
+
+					}
+					mid = lookingIn[(maxIndex + minIndex) / 2];
+					if (midIndex == maxIndex && midIndex == minIndex) {
+						cout << "value not found";
+						break;
+					}
+				}
+		
+	}
+}
+
+int main() {
+	int searchedValue;
+	int arraySize;
+	cout << "choose the size of the array: ";
+	cin >> arraySize;
+	int array[100];
+	cout << "enter array values in increasing order: "<<endl;
+	for (int i = 0; i < arraySize; i++) {
+		cin >> array[i];
+		if (i > 0) {
+			while (array[i] < array[i - 1]) {
+				cout << "I said in increasing order: " << endl;
+				cin >> array[i];
+			}
+		}
+	}
+	cout << "enter the value you're searching for: ";
+	cin >> searchedValue;
+	
+	 searching(searchedValue, array, arraySize);	
+	return 0;
+}
+
